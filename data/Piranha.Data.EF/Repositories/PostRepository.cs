@@ -633,7 +633,7 @@ namespace Piranha.Repositories
                             Id = model.Category.Id != Guid.Empty ? model.Category.Id : Guid.NewGuid(),
                             BlogId = model.BlogId,
                             Title = model.Category.Title,
-                            Slug = Utils.GenerateSlug(model.Category.Title),
+                            Slug = Utils.GenerateCategorySlug(model.BlogId,model.Category.Title),
                             Created = DateTime.Now,
                             LastModified = DateTime.Now
                         };
@@ -673,7 +673,7 @@ namespace Piranha.Repositories
                                 Id = t.Id != Guid.Empty ? t.Id : Guid.NewGuid(),
                                 BlogId = model.BlogId,
                                 Title = t.Title,
-                                Slug = Utils.GenerateSlug(t.Title),
+                                Slug = Utils.GenerateTagSlug(model.BlogId, t.Title),
                                 Created = DateTime.Now,
                                 LastModified = DateTime.Now
                             };
@@ -688,11 +688,11 @@ namespace Piranha.Repositories
                 // Ensure that we have a slug
                 if (string.IsNullOrWhiteSpace(model.Slug))
                 {
-                    model.Slug = Utils.GenerateSlug(model.Title, false);
+                    model.Slug = Utils.GeneratePostSlug(model, model.Title);
                 }
                 else
                 {
-                    model.Slug = Utils.GenerateSlug(model.Slug, false);
+                    model.Slug = Utils.GeneratePostSlug(model, model.Slug);
                 }
 
                 IQueryable<Post> postQuery = _db.Posts;

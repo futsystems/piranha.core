@@ -672,11 +672,11 @@ namespace Piranha.Services
             // Ensure slug
             if (string.IsNullOrWhiteSpace(model.Slug))
             {
-                model.Slug = Utils.GenerateSlug(model.Title, false);
+                model.Slug = Utils.GeneratePostSlug(model, model.Title);
             }
             else
             {
-                model.Slug = Utils.GenerateSlug(model.Slug, false);
+                model.Slug = Utils.GeneratePostSlug(model, model.Slug);
             }
 
             // Ensure category

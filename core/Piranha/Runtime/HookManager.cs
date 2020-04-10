@@ -120,6 +120,39 @@ namespace Piranha.Runtime
         public delegate string SlugDelegate(string str);
 
         /// <summary>
+        /// Delegate for generating a category slug.
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public delegate string CategorySlugDelegate(Guid pageId, string str);
+
+
+        /// <summary>
+        /// Delegate for generating a post slug.
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public delegate string PostSlugDelegate(PostBase post,string str);
+
+        /// <summary>
+        /// Delegate for generating a page slug
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public delegate string PageSlugDelegate(PageBase page, string str);
+
+        /// <summary>
+        /// Delegate for generating a tag slug
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public delegate string TagSlugDelegate(Guid pageId, string str);
+
+        /// <summary>
         /// Delegate for generating the public sitemap.
         /// </summary>
         /// <param name="sitemap">The default sitemap</param>
@@ -175,6 +208,26 @@ namespace Piranha.Runtime
         /// Gets the hook for slug generation.
         /// </summary>
         public SlugDelegate OnGenerateSlug { get; set; }
+
+        /// <summary>
+        /// Gets the hook for category slug generation
+        /// </summary>
+        public CategorySlugDelegate OnGenerateCategorySlug { get; set; }
+
+        /// <summary>
+        /// Gets the hook for post slug generation
+        /// </summary>
+        public PostSlugDelegate OnGeneratePostSlug { get; set; }
+
+        /// <summary>
+        /// Gets the hook for page slug generation
+        /// </summary>
+        public PageSlugDelegate OnGeneratePageSlug { get; set; }
+
+        /// <summary>
+        /// Gets the hook for tag slug generatioin
+        /// </summary>
+        public TagSlugDelegate OnGenerateTagSlug { get; set; }
 
         /// <summary>
         /// Gets the hook for generating the public sitemap.

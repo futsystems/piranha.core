@@ -46,6 +46,28 @@ namespace Piranha
             return tmp.ToArray();
         }
 
+        public static string GenerateCategorySlug(Guid pageId,string str)
+        {
+            if (App.Hooks != null && App.Hooks.OnGenerateCategorySlug != null)
+            {
+                // Call the registered slug generation
+                return App.Hooks.OnGenerateCategorySlug(pageId,str);
+            }
+
+            return GenerateSlug(str);
+        }
+
+        public static string GeneratePostSlug(Piranha.Models.PostBase post,string str)
+        {
+            if (App.Hooks != null && App.Hooks.OnGeneratePostSlug != null)
+            {
+                // Call the registered slug generation
+                return App.Hooks.OnGeneratePostSlug(post, str);
+            }
+
+            return GenerateSlug(str);
+        }
+
         /// <summary>
         /// Generates a slug from the given string.
         /// </summary>
@@ -59,6 +81,40 @@ namespace Piranha
                 return App.Hooks.OnGenerateSlug(str);
             }
 
+            return GenerateSlug(str);
+        }
+
+        public static string GeneratePageSlug(Piranha.Models.PageBase page,string str)
+        {
+            if (App.Hooks != null && App.Hooks.OnGeneratePageSlug != null)
+            {
+                // Call the registered slug generation
+                return App.Hooks.OnGeneratePageSlug(page, str);
+            }
+
+            return GenerateSlug(str);
+        }
+
+        /// <summary>
+        /// generate a slug for tag string
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string GenerateTagSlug(Guid pageId,string str)
+        {
+            if (App.Hooks != null && App.Hooks.OnGenerateTagSlug != null)
+            {
+                // Call the registered slug generation
+                return App.Hooks.OnGenerateTagSlug(pageId, str);
+            }
+
+            return GenerateSlug(str);
+        }
+
+
+        static string GenerateSlug(string str)
+        {
             // Trim & make lower case
             var slug = str.Trim().ToLower();
 
@@ -83,8 +139,8 @@ namespace Piranha
             slug = Regex.Replace(slug.Replace("-", " "), @"\s+", " ").Replace(" ", "-");
 
             // Remove slash if non-hierarchical
-            if (!hierarchical)
-                slug = slug.Replace("/", "-");
+            //if (!hierarchical)
+            //    slug = slug.Replace("/", "-");
 
             // Remove multiple dashes
             slug = Regex.Replace(slug, @"[-]+", "-");

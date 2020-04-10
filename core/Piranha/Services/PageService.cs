@@ -587,12 +587,12 @@ namespace Piranha.Services
                             prefix = parentSlug + "/";
                         }
                     }
-                    model.Slug = prefix + Utils.GenerateSlug(!string.IsNullOrWhiteSpace(model.NavigationTitle) ? model.NavigationTitle : model.Title);
+                    model.Slug = prefix + Utils.GeneratePageSlug(model,!string.IsNullOrWhiteSpace(model.NavigationTitle) ? model.NavigationTitle : model.Title);
                 }
             }
             else
             {
-                model.Slug = Utils.GenerateSlug(model.Slug);
+                model.Slug = Utils.GeneratePageSlug(model,model.Slug);
             }
 
             // Check if we're changing the state

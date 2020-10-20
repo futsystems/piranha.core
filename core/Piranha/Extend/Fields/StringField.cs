@@ -28,6 +28,8 @@ namespace Piranha.Extend.Fields
         /// <param name="field">The field</param>
         public static implicit operator string(StringField field)
         {
+            if (field == null)
+                return "Null";
             return field.Value;
         }
     }
